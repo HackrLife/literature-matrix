@@ -13,7 +13,6 @@ import {
 	WorkspaceLeaf,
 	debounce,
 	getAllTags,
-	moment,
 	normalizePath,
 	setIcon,
 } from "obsidian";
@@ -267,7 +266,7 @@ export default class LiteratureMatrixPlugin extends Plugin {
 			new Notice("No literature notes found. Set a folder or tag in the plugin settings.");
 			return;
 		}
-		const date = moment().format("YYYY-MM-DD");
+		const date = todayIso();
 		const markdown = `---\n${EXPORT_MARKER}: ${date}\n---\n\n${toMarkdownTable(rows, this.columns, this.propertyKeys)}`;
 		const folder = this.settings.folder.trim();
 		const base = `Literature matrix ${date}`;
@@ -301,6 +300,12 @@ export default class LiteratureMatrixPlugin extends Plugin {
 	async openAtHeading(file: TFile, heading: string): Promise<void> {
 		await this.app.workspace.openLinkText(`${file.path}#${heading}`, "", false);
 	}
+}
+
+function todayIso(): string {
+	const now = new Date();
+	const pad = (n: number) => String(n).padStart(2, "0");
+	return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
 function cellText(text: string): string {
