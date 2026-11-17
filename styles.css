@@ -127,7 +127,14 @@
 }
 
 .lm-sort {
-	all: unset;
+	appearance: none;
+	background: none;
+	border: none;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;

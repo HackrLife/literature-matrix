@@ -1,10 +1,9 @@
 {
 	"id": "literature-matrix",
 	"name": "Literature Matrix",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.13.0",
 	"description": "Compare research notes side by side in a synthesis matrix, with papers as rows and sections such as Method, Data, Findings and Gaps as columns.",
 	"author": "Dev Das",
-	"authorUrl": "https://dev-das.com",
 	"isDesktopOnly": false
 }

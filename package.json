@@ -1,6 +1,6 @@
 {
 	"name": "literature-matrix",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Compare research notes side by side in a synthesis matrix, with papers as rows and sections such as Method, Data, Findings and Gaps as columns.",
 	"main": "main.js",
 	"private": true,
@@ -8,7 +8,12 @@
 		"build": "tsc -p . && node -e \"require('fs').copyFileSync('build/main.js','main.js')\"",
 		"typecheck": "tsc -p . --noEmit"
 	},
-	"keywords": ["obsidian-plugin", "research", "literature-review", "academic"],
+	"keywords": [
+		"obsidian-plugin",
+		"research",
+		"literature-review",
+		"academic"
+	],
 	"author": "Dev Das",
 	"license": "MIT",
 	"devDependencies": {
