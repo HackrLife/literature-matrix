@@ -773,6 +773,77 @@ class LiteratureMatrixSettingTab extends PluginSettingTab {
 		];
 	}
 
+	/** Settings page for Obsidian versions before 1.13, which have no declarative settings. */
+	display(): void {
+		const { containerEl } = this;
+		containerEl.empty();
+		const settings = this.plugin.settings;
+		const save = async () => {
+			await this.plugin.saveSettings();
+		};
+
+		new Setting(containerEl).setName("Which notes").setHeading();
+		new Setting(containerEl)
+			.setName("Folder")
+			.setDesc("Literature notes live here, including subfolders. Leave empty for the whole vault.")
+			.addText((text) =>
+				text
+					.setPlaceholder("Example: Research/Papers")
+					.setValue(settings.folder)
+					.onChange(async (value) => {
+						settings.folder = value;
+						await save();
+					}),
+			);
+		new Setting(containerEl)
+			.setName("Tag")
+			.setDesc("Only include notes with this tag. Leave empty to include every note in the folder.")
+			.addText((text) =>
+				text
+					.setPlaceholder("Example: #paper")
+					.setValue(settings.tag)
+					.onChange(async (value) => {
+						settings.tag = value;
+						await save();
+					}),
+			);
+
+		new Setting(containerEl).setName("Matrix columns").setHeading();
+		new Setting(containerEl)
+			.setName("Sections")
+			.setDesc(
+				"Headings to show as columns, separated by commas. Use | for other names that fill the same column, such as Findings|Results.",
+			)
+			.addTextArea((text) => {
+				text.setValue(settings.sections).onChange(async (value) => {
+					settings.sections = value;
+					await save();
+				});
+				text.inputEl.rows = 3;
+			});
+		new Setting(containerEl)
+			.setName("Properties")
+			.setDesc("Frontmatter properties to show next to each paper, separated by commas.")
+			.addText((text) =>
+				text
+					.setPlaceholder("Example: authors, year, venue")
+					.setValue(settings.properties)
+					.onChange(async (value) => {
+						settings.properties = value;
+						await save();
+					}),
+			);
+		new Setting(containerEl)
+			.setName("Render Markdown in cells")
+			.setDesc("Show links, lists and formatting. Turn off for plain text, which is faster in large vaults.")
+			.addToggle((toggle) =>
+				toggle.setValue(settings.renderMarkdown).onChange(async (value) => {
+					settings.renderMarkdown = value;
+					await save();
+				}),
+			);
+	}
+
 	getControlValue(key: string): unknown {
 		return this.plugin.settings[key as keyof LiteratureMatrixSettings];
 	}
